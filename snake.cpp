@@ -33,10 +33,6 @@ main(){
             cout << endl
                  << "Right" << endl; // key right
             break;
-        default:
-            cout << endl
-                 << "null" << endl; // not arrow
-            break;
         }
     }
 
