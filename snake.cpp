@@ -11,12 +11,12 @@ using namespace std;
 char mapgen(int wielkosc){
     int x,y;
     x = y = (wielkosc/2)+2;
-    string tab[y];
+    char tab[y];
     for (int i = 0; i <= y; i++)
     {
-        tab[0] = tab[0] + "#";
+        tab[0] = tab[0]+'X';
         cout << tab[0];
-        tab[y - 1] = tab[y - 1] + "#";
+        tab[y - 1] = tab[y - 1]+'X';
         cout << tab[y - 1];
     }
     for (int i = 0; i <= y; i++)
