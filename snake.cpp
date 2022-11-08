@@ -46,6 +46,7 @@ char mapgen(int wielkosc){
             x++;
         }
     }
+    return 0;
 }
 
 void nowagra(){
