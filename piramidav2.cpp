@@ -16,7 +16,7 @@ int licz(){
 int main()
 {
     x = y = wynik = 0;
-    cout << "wprowadź liczbę cegieł w podstawie piramidy: ";
+    cout << "wprowadź długość boku piramidy: ";
     cin >> x;
     y = x;
     licz();
