@@ -1,5 +1,5 @@
 using namespace std;
-/**/
+
 #include <conio.h>
 #include <iostream>
 #include <string>
@@ -10,50 +10,31 @@ using namespace std;
 #define KEY_RIGHT 77
 int control=0;
 
-char mapgen(int wielkosc){
-    string tab[50];
-    for(int i=0; i<=9; i++){
-    tab[i] = "X";
-    }
-    cout << endl;
-    int y=10;
-    int x=0;
-    for(int i=0; i<=9; i++){
-        x=0;
-        tab[x+y] = "X";
-        x=9;
-        tab[x+y] = "X";
-        int z=2;
-        y=10*z;
-        z++;
-    }
-    for(int i=0; i<=9; i++){
-    tab[40+i] = "X";
-    }
-    while(control=1){
-        for(int i=0;i<=50;i++){
-            if(tab[i]!="X"){
-             tab[i]="#";
-            }
+char mapgen(int x, int y){
+    int z=0,scana=1,mapa=0,sglowa=3,scialo=4,owoc=5;
+    int tab[x][x];
+    z=0;
+    for(;z!=x;z++){
+        if((z==0) || (z==10)){
+            for(int i=0;i!=x;i++){
+            tab[z][i]=1;
+            } 
+        }
+        if((z>0) && (z<10)){
+            for(int i=0;i!=x;i++){
+            tab[z][0]=1;
+                for(int i=1;i<=9;i++){
+                    tab[z][i]=0;
+                }
+            tab[z][9]=1;
+            }  
         }
     }
-    y=0;
-    x=1;
-    for(int i=0;i<=50;i++){
-    cout<<tab[i];
-        if(y==10*x){
-            cout << endl;
-            x++;
-        }
-    }
-    return 0;
 }
 
 void nowagra(){
-    cout << "Podaj wielkość mapy (przekątna):"<<endl;
-    int wielkosc;
-    cin >> wielkosc;
-    mapgen(wielkosc);
+    int x=10,y;
+    mapgen(x, y);
 }
 
 main(){
