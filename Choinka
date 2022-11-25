@@ -16,10 +16,6 @@ int main()
         tablica[yy]= tablica[b-1]+"**";
         yy++;
     }
-    for(;i<y;i++){
-        for(;z<=y-i;z++){
-            cout<<"↔";
-        }
     cout<<tablica[i]<<endl;
     }
     for(;z<=y-i;z++){
