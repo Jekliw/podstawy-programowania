@@ -7,32 +7,34 @@
 
 using namespace std;
 
-int copyz,copyx;
-char copyc[64];
-string coutput[100];
+int copyz,copyx,copyc;
 int i=0;
-/*
-int hexcon (char c){
-   int dlugosc= strlen(ct);
-   int ce=1;
-   int wynik=0;
-   for(int i=dlugosc-1;i>=0;i--){
-      if(c[i]>='0' && c[i]<='9'){
-         wynik += (c[i]-48) * ce;
-         ce = ce*16;
+int d;
+const char* ct;
+
+void dectohex(int c) {
+   char tab[100];
+   int i = 0;
+   while(c!=0) {
+      int w = 0;
+      w = c % 16;
+      if(w < 10) {
+         tab[i] = w + 48;
+         i++;
+      } else {
+         tab[i] = w + 55;
+         i++;
       }
-      else if(c[i]>='A'&& c[i]<='F'){
-         wynik += (c[i]-55) * ce;
-         ce = ce * 16;
-      }
+      c = c/16;
    }
-   return wynik;
+   for(int j=i-1; j>=0; j--)
+   cout << tab[j];
 }
-*/
+
 int binconv(long long x){
-    int wynik = 0;
+    long int wynik = 0;
     int i = 0;
-    int resz;
+    long int resz;
 
   while (x!=0) {
     resz = x % 10;
@@ -43,30 +45,30 @@ int binconv(long long x){
   return wynik;
 }
 
-void dectobinconv(const char* z){
-    int dlugosc = strlen(z);
-    int zw = z;
-    int suma = 0;
-    int wynik[dlugosc*10], endcode=dlugosc;
-    while(endcode!=0){
-        wynik[i]=zw % 2;
-        zw/=2;
-        cout<<wyniki[i];
-        i++;
-    }
+void dectobinconv(int z){
+   int bin[100], num=z;
+   int i = 0;
+   while (z > 0) {
+      bin[i] = z % 2;
+      z = z / 2;
+      i++;
+   }
+   for (int j=i-1;j>=0;j--){
+   cout << bin[j];
+   }
 }
 
-void convert(int z,int x,char* c){
-    cout << "Liczba binarna z liczby dziesiętnej: " << dectobinconv(z) <<endl;
+void convert(int z,int x,int c){
+    cout << "Liczba binarna z liczby dziesiętnej: "; dectobinconv(z); cout<<endl;
     cout << "Liczba dziesiętna z liczby binarnej: " << binconv(x)<<endl;
-    cout << "Liczba szesnastkowa z liczby dziesiętnej: " << <<endl;
+    cout << "Liczba szesnastkowa z liczby dziesiętnej: "; dectohex(z); cout<<endl;
+    cout << "Liczba szesnastkowa z liczby binarnej: "; dectohex(binconv(x)); cout<<endl;
 }
 
 int main()
 {
-    int z;
+    int z,c;
     long long x;
-    char c[64];
     
     cout<<"podaj liczbę dziesiętną: ";
     cin >> z;
@@ -76,10 +78,7 @@ int main()
     cin >> c;
     copyz= z;
     copyx= x;
-    for(int i=0;i<=64;i++){
-        c[i]=copyc[i];
-    }
-    hexcon(c);
+    copyc= c;
     convert(z,x,c);
     return 0;
 }
