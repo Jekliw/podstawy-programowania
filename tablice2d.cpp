@@ -50,6 +50,7 @@ int main()
         case 1:
         ramka();
         break;
+        case 
     }
     for(int i=0;i<=4;i++){
         for(int z=0;z<=4;z++){
