@@ -12,11 +12,11 @@ int i=0;
 int d;
 const char* ct;
 
-void dectohex(int c) {
+void dectohex(long int c) {
    char tab[100];
-   int i = 0;
+   long int i = 0;
    while(c!=0) {
-      int w = 0;
+      long int w = 0;
       w = c % 16;
       if(w < 10) {
          tab[i] = w + 48;
@@ -33,7 +33,7 @@ void dectohex(int c) {
 
 int binconv(long long x){
     long int wynik = 0;
-    int i = 0;
+    long int i = 0;
     long int resz;
 
   while (x!=0) {
@@ -58,7 +58,7 @@ void dectobinconv(int z){
    }
 }
 
-void convert(int z,int x,int c){
+void convert(long int z,long int x,long int c){
     cout << "Liczba binarna z liczby dziesiętnej: "; dectobinconv(z); cout<<endl;
     cout << "Liczba dziesiętna z liczby binarnej: " << binconv(x)<<endl;
     cout << "Liczba szesnastkowa z liczby dziesiętnej: "; dectohex(z); cout<<endl;
@@ -67,7 +67,7 @@ void convert(int z,int x,int c){
 
 int main()
 {
-    int z,c;
+    long int z,c;
     long long x;
     
     cout<<"podaj liczbę dziesiętną: ";
