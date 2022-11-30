@@ -1,18 +1,13 @@
-/******************************************************************************
-
-                              Online C++ Compiler.
-               Code, Compile, Run and Debug C++ program online.
-Write your code in this editor and press "Run" button to compile and execute it.
-
-*******************************************************************************/
-
-#include <iostream>
-
+#include <iostream> /*tym razem tylko jedna biblioteka a nie 5*/
+/*w razie pytania czemu każda funkcja oprócz main to void, te funkcje i tak zwracają
+wszystko na int globalny przez co nie czułem potrzeby by funkcja miała zwracać cokolwiek*/
 using namespace std;
 
-int tab[4][4],control;
+int tab[5][5]; /*zmienne globalne bym nie musiał tego wpisywać w funkcjach co chwilę*/
+int control;  /*funkcja kontrolna dla punktów które dzielą jedną funkcje ponieważ 
+            były bardzo podobne a robienie kolejnych funkcji to tylko strata linijek*/
 
-void dlugitekst(){
+void dlugitekst(){ /*długi tekst*/
     cout<<"1) Obramowanie jedynkami"<<endl;
     cout<<"2) Przekątna jedynkami"<<endl;
     cout<<"3) Druga przekątna jedynkami"<<endl;
@@ -26,7 +21,8 @@ void dlugitekst(){
     cout<<"11) Skosy kolejno 0,1,2,0,1,2, itd."<<endl;
     cout<<"12) Narożne i środkowy jedynkami, co drugi skos dwójkami"<<endl;
 }
-void co_dwa(){
+void co_dwa(){/*punkt 4. To było pierwsze zadanie które zrobiło mi większy problem,
+                teraz nie pamiętam o co mi chodziło*/
     for(int i=0;i<=4;){
         if(i==0||i==4){
             for(int z=0;z<=4;){
@@ -41,34 +37,24 @@ void co_dwa(){
     }
 }
 
-void skos(){
-    int z=0;
-    int tab2[4][4];
+void skos(){ /*punkt 2 i 3. Przez źle ustawione tablice męczyłem się z tym prawie 2 dni by
+            odkryć że trzeba było zmienić 4 na 5...*/
     if(control==2){
         for(int i=0;i<=4;i++){
-            tab2[i][i]=1;
-            for(int i=0;i<=4;i++){
-            cout<<tab2[z][i];
-            }
-        cout<<endl;
-        z++;
-        }
-    } else if(control==3){
-        for(int i=4;i<=0;i--){
             tab[i][i]=1;
         }
-    } else{
-        exit(404);
-    }
-    for(int i=0;i<=4;i++){
+    } else if(control==3){
+        int z=4;
         for(int i=0;i<=4;i++){
-            tab[i][z]=tab2[i][z];
+            tab[i][z]=1;
+            z--;
         }
-    z++;
+    } else{
+        exit(404); /*to jest tylko po to w razie jakby coś nagle poszło nie tak*/
     }
 }
 
-void ramka(){
+void ramka(){ /*punkt 1. Większość funkcji to modyfikacja tego kodu.*/
     for(int i=0;i<=4;i++){
         if(i==0||i==4){
             for(int z=0;z<=4;z++){
@@ -81,7 +67,7 @@ void ramka(){
     }
 }
 
-void co_drugi(){
+void co_drugi(){ /*punkt 5 i 6. jedno to jest kopia drugiego tylko zamienione int++*/
     if(control==5){
         for(int i=0;i<=4;){
             for(int z=0;z<=4;z++){
@@ -99,7 +85,7 @@ void co_drugi(){
     }
 }
 
-void szachownica(){
+void szachownica(){/*punkt 7. nie miałem na to sensownego pomysłu*/
     for(int i=0;i<=4;i++){
         if(i==1||i==3){
             tab[i][1]=1;
@@ -112,7 +98,7 @@ void szachownica(){
     }
 }
 
-void X(){
+void X(){/*punkt 8. skończyły mi się pomysły na nazwy funkcji a to było adekwatne*/
     int i=0,z=4;
     for(;i<=4;){
         if(i==z){
@@ -126,7 +112,8 @@ void X(){
     }
 }
 
-void przekontna_na_trzy(){
+void przekontna_na_trzy(){/*punkt 9. minimalny problem tu był bo 
+                            przypadkowo na końcu zamiast tab[i][i]=1; dałem tab[i][i]=2;*/
     int z=0;
     for(int i=0;i<=4;i++){
         if(i==0){
@@ -153,13 +140,83 @@ void przekontna_na_trzy(){
             }
         } else{
             tab[i][i-1]=1;
-            tab[i][i]=2;
+            tab[i][i]=1;
         }
     z=0;
     }
 }
 
-void menu(){
+void zmienne_wiersze(){/*punkt 10. to jest kopia punktu 1 zrobiona 3 razy.
+                        wartość ster jest po to by kontrolowała kolejność*/
+    int ster=0;
+    for(int i=0;i<=4;i++){
+        if(ster==3){
+            ster=0;
+        }
+        switch(ster){ /*gdy to pisałem to zdałem sobie sprawę że zamiast if mogłem pisać switch.
+                        no cóż.*/
+            case 0:
+            for(int z=0;z<=4;z++){
+                tab[i][z]=0;
+            }
+            break;
+            case 1:
+            for(int z=0;z<=4;z++){
+                tab[i][z]=1;
+            }
+            break;
+            case 2:
+            for(int z=0;z<=4;z++){
+                tab[i][z]=2;
+            }
+            break;
+        }
+        ster++;
+    }
+}
+
+void pseudo_kod1(){ /*nienwaidzę tego - 23:33*/ /*przecież to wygląda jak kod do 10 :O - 23:34*/ 
+    int x=0,y=0;        /*jednak nie - 23:37*/ /*nienwaidzę tego - 23:45*/ /*zrobione -??:??*/
+    for(int i=0;i<=4;i++){
+        switch(y){
+            case 0:
+            x=0;
+            for(int z=0;z<=4;z++){
+                tab[i][z]=x;
+                x+=1;
+                if(x==3){
+                    x=0;
+                }
+            }
+            break;
+            case 1:
+            x=1;
+            for(int z=0;z<=4;z++){
+                tab[i][z]=x;
+                x+=1;
+                if(x==3){
+                    x=0;
+                }
+            }
+            break;
+            case 2:
+            x=2;
+            for(int z=0;z<=4;z++){
+                tab[i][z]=x;
+                x+=1;
+                if(x==3){
+                    x=0;
+                }
+            }
+            break;
+        }
+    y++;
+    if(y==3){
+        y=0;
+    }
+}}
+
+void menu(){ /*tu jest jedynie funkcja wybierania innych funkcji, długie i nic ciekawego*/
         switch(control){
         case 1:
         ramka();
@@ -189,20 +246,26 @@ void menu(){
         przekontna_na_trzy();
         break;
         case 10:
+        zmienne_wiersze();
+        break;
+        case 11: /*to jest część której nienawidzę*/
+        pseudo_kod1();
+        break;
+        case 12: /*zrobić na lekcji*/
+        pseudo_kod2();
         break;
     }
-    for(int i=0;i<=4;i++){
-        for(int z=0;z<=4;z++){
-            cout<<tab[i][z];
-        }
-        cout<<endl;
-    }
+        for(int i=0;i<=4;i++){
+            for(int z=0;z<=4;z++){
+                cout<<tab[i][z];
+            }
+            cout<<endl;
+         }
 }
 
-
-int main()
-{
-    for(int i=0;i<=4;i++){
+int main(){
+    for(int i=0;i<=4;i++){ /*przeczyszczenie tablicy z losowych wartości na same zera, 
+                            zrobione w razie czego*/
         for(int z=0;z<=4;z++){
             tab[i][z]=0;
         }
