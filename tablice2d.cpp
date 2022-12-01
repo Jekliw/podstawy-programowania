@@ -216,12 +216,23 @@ void pseudo_kod1(){ /*nienwaidzę tego - 23:33*/ /*przecież to wygląda jak kod
     }
 }}
 void pseudo_kod2(){
-    control=0;
-    for(int i;i<=4;i++){
-        if(control==0||control==4){
+    int control2;
+    control2=0;
+    for(int i=0;i<=4;i++){
+        if(control2==0||control2==4){
             int no=1;
             for(int z=0;z<=4;z++){
                 tab[i][z]=no;
+                if(z==3||z==4){
+                    switch(z){
+                        case 3:
+                        tab[i][z]=0;
+                        break;
+                        case 4:
+                        tab[i][z]=1;
+                        break;
+                    }
+                } else {
                 switch(no){
                     case 1:
                     no--;
@@ -233,8 +244,9 @@ void pseudo_kod2(){
                     no--;
                     break;
                 }
+                }
             }
-        } else if(control==1||control==3){
+        } else if(control2==1||control2==3){
             int no=0;
             for(int z=0;z<=4;z++){
                 tab[i][z]=no;
@@ -248,6 +260,16 @@ void pseudo_kod2(){
             int no=2;
             for(int z=0;z<=4;z++){
                 tab[i][z]=no;
+                if(z==3||z==4){
+                    switch(z){
+                        case 3:
+                        tab[i][z]=0;
+                        break;
+                        case 4:
+                        tab[i][z]=2;
+                        break;
+                    }
+                } else {
                 if(no==2){
                     no=0;
                 } else if(no==0){
@@ -255,9 +277,9 @@ void pseudo_kod2(){
                 } else{
                     no++;
                 }
-            }
+            }}
         }
-        control++;
+        control2++;
     }
 }
 void menu(){ /*tu jest jedynie funkcja wybierania innych funkcji, długie i nic ciekawego*/
