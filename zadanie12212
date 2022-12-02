@@ -1,0 +1,79 @@
+#include <iostream>
+#include <cstdlib>
+
+using namespace std;
+
+int tab[10][10];
+int x,y,control,suma_tabeli;
+
+void losowanie_liczb(){
+    for(int i=0;i<10;i++){
+        for(int z=0;z<10;z++){
+            int random=rand() % 10;
+            tab[i][z]=random;
+        }
+    }
+}
+
+void suma(){
+    if((x==0||x==9)&&(y==0||y==9)){
+        if(x==0&&y==0){
+            suma_tabeli=tab[0][1]+tab[1][1]+tab[1][2];
+        } else if(x==9&&y==0){
+            suma_tabeli=tab[0][8]+tab[1][8]+tab[1][9];
+        } else if(x==0&&y==9){
+            suma_tabeli=tab[8][1]+tab[8][2]+tab[9][2];
+        } else if(x==9&&y==9){
+            suma_tabeli=tab[9][8]+tab[8][8]+tab[8][9];
+        }
+    } else if((x==0||x==9)&&(y!=0||y!=9)){
+        if(x==0){
+            suma_tabeli=tab[y+1][x]+tab[y-1][x]+tab[y+1][x+1]+tab[y-1][x+1]+tab[y][x+1];
+        } else{
+            suma_tabeli=tab[y+1][x]+tab[y-1][x]+tab[y+1][x-1]+tab[y-1][x-1]+tab[y][x-1];
+        }
+    } else if((y==0||y==9)&&(x!=0||x!=9)){
+        if(x==0){
+            suma_tabeli=tab[y][x+1]+tab[y][x-1]+tab[y-1][x-1]+tab[y-1][x+1]+tab[y+1][x];
+        } else{
+            suma_tabeli=tab[y][x+1]+tab[y][x-1]+tab[y+1][x-1]+tab[y+1][x+1]+tab[y]-1[x];
+        }
+    } else{
+        suma_tabeli=tab[y][x-1]+tab[y][x+1]+tab[y+1][x-1]+tab[y+1][x]+tab[y+1][x+1]+tab[y-1][x-1]+tab[y-1][x]+tab[y-1][x+1];
+    }
+}
+
+void wybor(){
+    cout<<"Czy chcesz sumować komurki i kolumny?"<<endl<<"1 - tak"<<endl<<"0 - nie"<<endl<<"Każda inna wartość spowoduje zakończenie programu.";
+    cin >> control;
+    switch(control){
+    case 0:
+    break;
+    case 1:
+    cout<<endl;
+    cout<<"Wybierz wiersz: "<<endl;
+    cin >> y;
+    cout<<"Wybierz kolumne: "<<endl;
+    cin >> x;
+    suma();
+    cout<<"Twoja suma liczb: "<<suma_tabeli<<endl;
+    break;
+    if(control!=1||control!=0){
+        exit("nieprawidłowa liczba")
+    }
+    }
+    
+}
+
+int main()
+{
+    losowanie_liczb();
+    for(int i=0;i<10;i++){
+        for(int z=0;z<10;z++){
+            cout<<tab[i][z];
+        }
+        cout<<endl;
+    }
+    wybor();
+    return 0;
+}
