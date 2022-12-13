@@ -16,13 +16,15 @@ void losowanie_liczb(){
 }
 
 void suma(){
+    x--;
+    y--;
     if((x==0||x==9)&&(y==0||y==9)){
         if(x==0&&y==0){
-            suma_tabeli=tab[0][1]+tab[1][1]+tab[1][2];
+            suma_tabeli=tab[0][1]+tab[1][0]+tab[1][1];
         } else if(x==9&&y==0){
             suma_tabeli=tab[0][8]+tab[1][8]+tab[1][9];
         } else if(x==0&&y==9){
-            suma_tabeli=tab[8][1]+tab[8][2]+tab[9][2];
+            suma_tabeli=tab[8][1]+tab[8][0]+tab[9][1];
         } else if(x==9&&y==9){
             suma_tabeli=tab[9][8]+tab[8][8]+tab[8][9];
         }
@@ -36,7 +38,7 @@ void suma(){
         if(x==0){
             suma_tabeli=tab[y][x+1]+tab[y][x-1]+tab[y-1][x-1]+tab[y-1][x+1]+tab[y+1][x];
         } else{
-            suma_tabeli=tab[y][x+1]+tab[y][x-1]+tab[y+1][x-1]+tab[y+1][x+1]+tab[y]-1[x];
+            suma_tabeli=tab[y][x+1]+tab[y][x-1]+tab[y+1][x-1]+tab[y+1][x+1]+tab[y-1][x];
         }
     } else{
         suma_tabeli=tab[y][x-1]+tab[y][x+1]+tab[y+1][x-1]+tab[y+1][x]+tab[y+1][x+1]+tab[y-1][x-1]+tab[y-1][x]+tab[y-1][x+1];
@@ -52,16 +54,13 @@ void wybor(){
     break;
     case 1:
     cout<<endl;
-    cout<<"Wybierz wiersz: "<<endl;
+    cout<<"Wybierz wiersz od 1 do 10: "<<endl;
     cin >> y;
-    cout<<"Wybierz kolumne: "<<endl;
+    cout<<"Wybierz kolumne od 1 do 10: "<<endl;
     cin >> x;
     suma();
     cout<<"Twoja suma liczb: "<<suma_tabeli<<endl;
     break;
-    if(control!=1||control!=0){
-        exit("nieprawidłowa liczba")
-    }
     }
     
 }
