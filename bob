@@ -1,0 +1,52 @@
+/*
+2d tablica
+wielkość użytkownika 
+wypełniona liczbami od 0 do 50
+równo wyświetlić
+zsumować tablicę
+wyświetlić która tablica ma największą sumę
+\e[38;5;75m
+*/
+#include <iostream>
+#include <string>
+#include<cstdlib>
+#include<ctime>
+
+using namespace std;
+
+int w, ilosc,control;
+string test;
+
+int main(){
+    srand(time(0));
+    cout << "Podaj ilość tablic: ";
+    cin >> ilosc;
+    cout<<endl << "Podaj wielkość tablicy: ";
+    cin>>w;
+    int tab[ilosc][w];
+    for(int i=0;i<ilosc;i++){
+        for(int z=0;z<w;z++){
+            tab[i][z] = rand() % 101;
+        }
+    }
+    for(int i=0;i<ilosc;i++){
+        for(int z=0;z<w;z++){
+            test = tab[i][z];
+            control = test.size();
+            switch(control){
+                case 1:
+                cout<<tab[i][z]<<"         ";
+                break;
+                case 2:
+                cout<<tab[i][z]<<"  ";
+                break;
+                case 3:
+                cout<<tab[i][z]<<" ";
+                break;
+            }
+        }
+        cout<<endl;
+    }
+    
+    return 0;
+}
