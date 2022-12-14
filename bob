@@ -14,7 +14,7 @@ wyświetlić która tablica ma największą sumę
 
 using namespace std;
 
-int w, ilosc,control;
+int w, ilosc,control,test2,control2,win;
 string test;
 
 int main(){
@@ -23,19 +23,23 @@ int main(){
     cin >> ilosc;
     cout<<endl << "Podaj wielkość tablicy: ";
     cin>>w;
-    int tab[ilosc][w];
+    long long int tab[ilosc][w];
+    long long int controltab[ilosc][1];
     for(int i=0;i<ilosc;i++){
         for(int z=0;z<w;z++){
             tab[i][z] = rand() % 101;
+            controltab[i][1]=0;
         }
     }
     for(int i=0;i<ilosc;i++){
+        cout<<"Tablica "<< i+1 << ": ";
         for(int z=0;z<w;z++){
-            test = tab[i][z];
+            test2 = tab[i][z];
+            test = to_string(test2);
             control = test.size();
             switch(control){
                 case 1:
-                cout<<tab[i][z]<<"         ";
+                cout<<tab[i][z]<<"   ";
                 break;
                 case 2:
                 cout<<tab[i][z]<<"  ";
@@ -44,9 +48,20 @@ int main(){
                 cout<<tab[i][z]<<" ";
                 break;
             }
+            controltab[i][1]+=tab[i][z];
         }
         cout<<endl;
     }
-    
+    for(int i=0;i<ilosc;i++){
+        cout<<"Tablica "<< i+1 << ": "<<controltab[i][1]<<endl;
+    }
+    control=0;
+        control2=controltab[0][1];
+        for(int z=0;z<ilosc;z++){
+            if(control2>controltab[z][1]){
+                win = control2;
+            } 
+        }
+    cout<<"Największa liczba ("<<win<<")";
     return 0;
 }
