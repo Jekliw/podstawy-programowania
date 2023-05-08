@@ -1,12 +1,14 @@
 #include <iostream>
 #include <cstdlib>
-#include <ctime>
+#include <bits/stdc++.h>
+#include <set>
 
 using namespace std;
 
 class Gra{
 public:
     int gamemode;
+    bool num_input;
     Gra(int z){
         gamemode = z;
         cout<<"Pomyślnie wczytano zawartość!"<<endl;
@@ -15,189 +17,141 @@ public:
         while(true!=false){
         diff();
         mapgen();
+        doublecontrol();
         }
     }
-    void mapgen() {
-        system("clear");
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                if (i == posY && j == posX) {
-                    cout << "X";
-                } else if (tab[i][j] != "0") { 
-                    cout << tab[i][j];
-                } else {
-                    cout << "-";
-                }
-                cout << " ";
-                if (j == 2 || j == 5) {
-                    cout << "| ";
-                }
-            }
-            cout << endl;
-            if (i == 2 || i == 5) {
-                cout << "---------------------" << endl;
-            }
-        }
-        cout << "zycia:" << zycie << endl;
-        if (checkGO(zycie)) {
-            exit(0);
-        }
-    }
-private:
-    int zycie=5;
-    int posX, posY;
-    string tab[9][9]{
-            {" "," "," "," "," "," "," "," "," "},
-            {" "," "," "," "," "," "," "," "," "},
-            {" "," "," "," "," "," "," "," "," "},
-            {" "," "," "," "," "," "," "," "," "},
-            {" "," "," "," "," "," "," "," "," "},
-            {" "," "," "," "," "," "," "," "," "},
-            {" "," "," "," "," "," "," "," "," "},
-            {" "," "," "," "," "," "," "," "," "},
-            {" "," "," "," "," "," "," "," "," "}
-    };
-    bool checkDup(string tab[9][9], int row, int col, int num) {
-    for (int i = 0; i < 9; i++) {
-        if (tab[row][i] == std::to_string(num)) {
-            return true;
-        }
-    }
-    for (int i = 0; i < 9; i++) {
-        if (tab[i][col] == std::to_string(num)) {
-            return true;
-        }
-    }
-    int rowStart = row - (row % 3);
-    int colStart = col - (col % 3);
-    for (int i = rowStart; i < rowStart + 3; i++) {
-        for (int j = colStart; j < colStart + 3; j++) {
-            if (tab[i][j] == std::to_string(num)) {
-                return true;
-            }
-        }
-    }
-    return false;
-    }
-    void win(int a[], int size) {
-    for (int i = 0; i < size; i++) {
-        a[i] = i+1;
-        }
-    }
+    void control(){
+    char key;
+    string num;
 
-    void randomBox(int a[], int size) {
-    srand(time(NULL));
-    for (int i = 0; i < size; i++) {
-        int j = rand() % size;
-        int temp = a[i];
-        a[i] = a[j];
-        a[j] = temp;
+    cin>>key;
+    if(key>=49&&key<=58){
+        num = key;
+        if (gitcheck(posY, posX, num)) {
+            tab[posY][posX] = num;
+        } else {
+            cout << "zły ruch. spróbuj ponownie" << endl;
+            sleep(1);
         }
-    }
-    int roll;
-    void diff(){
-        switch(gamemode){
-            case 1:
-                roll=30;
+    } else{
+        switch(key){
+            case 'w':
+                posY--;
                 break;
-            case 2:
-                roll=20;
+            case 's':
+                posY++;
                 break;
-            case 3:
-                roll=10;
+            case 'a':
+                posX--;
                 break;
-            case 4:
-                roll=5;
+            case 'd':
+                posX++;
                 break;
-        }
-    }
-    bool checkrow(int row, int num) { 
-        for (int i = 0; i < 9; i++) {
-            if (tab[row][i] == std::to_string(num)) {
-                return true;
             }
         }
-        return false;
     }
-    bool checkcol(int col, int num) {
-        for (int i = 0; i < 9; i++) {
-           if (tab[i][col] == std::to_string(num)) {
-                return true;
+    void doublecontrol(){
+        control();
+        if(posX<0){
+            posX++;
+        } else if(posX>8){
+            posX--;
+        } else if(posY<0){
+            posY++;
+        } else if(posY>8){
+            posY--;
+        }
+    }
+    bool gitcheck(int row, int col, string num) {
+    for (int i = 0; i < 9; i++) {
+        if (tab[row][i] == num) {
+            return false;
+        }
+    }
+    for (int i = 0; i < 9; i++) {
+        if (tab[i][col] == num) {
+            return false;
+        }
+    }
+    int boxRow = row / 3 * 3;
+    int boxCol = col / 3 * 3;
+    for (int i = boxRow; i < boxRow + 3; i++) {
+        for (int j = boxCol; j < boxCol + 3; j++) {
+            if (tab[i][j] == num) {
+                return false;
             }
         }
-        return false;
     }
-    bool checkBox(int row, int col, int num) { 
-        int Row2 = row - row % 3;
-        int Col2 = col - col % 3;
-        for (int i = Row2; i < Row2 + 3; i++) {
-            for (int j = Col2; j < Col2 + 3; j++) {
-                if (tab[i][j] == std::to_string(num)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-    bool fincheck(int row, int col, int num) { 
-    if (tab[row][col] != "0") {
-        return false;
-    }
-    if (checkrow(row, num) || checkcol(col, num) || checkBox(row, col, num)) {  
-        zycie--;
-        if(checkGO(zycie)) {
-            exit(0);
-        }
-        controlcheck();
-        return false;
-    }
-    tab[row][col] = to_string(num);
     return true;
 }
-
-void controlcheck() {
+    void mapgen() {
     system("clear");
-    cout << "test" << endl;
-    mapgen();
-}
-
-void moveRight() {
-    if (posX < 8) {
-        posX++;
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9; j++) {
+            if(i==posY&&j==posX){
+                cout <<"["<< tab[i][j]<<"] ";
+            } else{
+            cout << tab[i][j];
+            cout << "   ";
+            }
+            if (j == 2 || j == 5) {
+                cout << "| ";
+            }
+        }
+        cout << endl;
+        if (i == 2 || i == 5) {
+            cout << "---------------------------------------" << endl;
+        }
+    }
+    bool win = true;
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9; j++) {
+            if (tab[i][j] == " ") {
+                win = false;
+                break;
+            }
+        }
+        if (!win) break;
+    }
+    if (win) {
+        cout << "Gratulacje, wygrales!" << endl;
+        exit(0);
     }
 }
-
-void moveUp() {
-    if (posY > 0) {
-        posY--;
-    }
-}
-
-void moveDown() {
-    if (posY < 8) {
-        posY++;
-    }
-}
-
-        void postawliczbe(int num) { 
-    if (fincheck(posY, posX, num)) {
-        controlcheck(); 
-     }
-    }
-    bool checkGO(int punkty) {
-    if (punkty <= 0) {
-        cout << "Przegrałeś, straciłeś wszystkie życia" << endl;
-        return true;
-    } else {
-        return false;
-    }
-}
-
+private:
+        int posX=1, posY=1;
+        string tab[9][9]{
+                {" "," "," ","2","6"," ","7"," ","1"},
+                {"6","8"," "," ","7"," "," ","9"," "},
+                {"1","9"," "," "," ","4","5"," "," "},
+                {"8","2"," ","1"," "," "," ","4"," "},
+                {" "," ","4","6"," ","2","9"," "," "},
+                {" ","5"," "," "," ","3"," ","2","8"},
+                {" "," ","9","3"," "," "," ","7","4"},
+                {" ","4"," "," ","5"," "," ","3","6"},
+                {"7"," ","3"," ","1","8"," "," "," "}
+        };
+        int roll;
+        void diff(){
+            switch(gamemode){
+                case 1:
+                    roll=30;
+                    break;
+                case 2:
+                    roll=20;
+                    break;
+                case 3:
+                    roll=10;
+                    break;
+                case 4:
+                    roll=5;
+                    break;
+            }
+        }
     };
 int main()
 {
-        cout<<"Hello World";
-        cout<<"Wybierz poziom trudności: "<<endl<<"1.Łatwy"<<endl<<"2.Normalny"<<endl<<"3.Trudny"<<endl<<"4.Bardzo Trudny"<<endl<<"Poziom: ";
+        cout<<"Wybierz poziom trudności: (nie działa, żadna liczba niczym się nie różni, mapa zawsze taka sama) "<<endl<<"1.Łatwy"<<endl<<"2.Normalny"<<endl<<"3.Trudny"<<endl<<"4.Bardzo Trudny"<<endl<<"Poziom: ";
         int choice;
         cin>>choice;
         switch(choice){
@@ -224,5 +178,4 @@ int main()
         }
         return 0;
 }
-
 
